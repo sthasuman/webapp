@@ -17,7 +17,7 @@ class Vendor(models.Model):
     personal_info = models.ForeignKey(PersonalInfo)
 
 class Product(models.Model):
-    prod_name = models.CharField()
+    prod_name = models.CharField(max_length=50)
     description = models.TextField()
     price = models.IntegerField()
     discount = models.IntegerField()
@@ -30,7 +30,6 @@ class Product(models.Model):
 class Category(models.Model):
     category_name = models.CharField(max_length=50)
     description = models.CharField(max_length=50)
-
 
 class Order(models.Model):
     customer = models.ForeignKey(Customer)
