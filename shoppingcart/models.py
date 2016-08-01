@@ -4,7 +4,7 @@ from django.db import models
 class PersonalInfo(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    dateofbirth = models.DateTimeField()
+    dob = models.DateTimeField()
     address = models.CharField()
     phone = models.IntegerField()
     email = models.CharField()
@@ -15,13 +15,14 @@ class Customer(models.Model):
 
 class Vendor(models.Model):
     personal_info = models.ForeignKey(PersonalInfo)
+    description = models.CharField(max_length=50)
 
 class Product(models.Model):
     prod_name = models.CharField(max_length=50)
     description = models.TextField(max_length=100)
     price = models.IntegerField()
     discount = models.IntegerField()
-    stock = models.IntegerField()
+    stock = models.IntegerField(max_length=20)
     feature = models.TextField()
     vendor = models.ForeignKey(Vendor)
     tags = models.TextField()
