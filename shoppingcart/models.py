@@ -7,5 +7,5 @@ class Customer(models.Model):
     dateofbirth =models.DateTimeField()
     address = models.CharField()
     phone = models.IntegerField(max_length=10)
-    email = models.CharField()
+    email = models.CharField(max_length=100)
 
