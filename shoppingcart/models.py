@@ -18,7 +18,7 @@ class Vendor(models.Model):
 
 class Product(models.Model):
     prod_name = models.CharField(max_length=50)
-    description = models.TextField()
+    description = models.TextField(max_length=100)
     price = models.IntegerField()
     discount = models.IntegerField()
     stock = models.IntegerField()
