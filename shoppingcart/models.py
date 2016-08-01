@@ -20,7 +20,7 @@ class Vendor(models.Model):
 class Product(models.Model):
     prod_name = models.CharField(max_length=50)
     description = models.TextField(max_length=100)
-    price = models.IntegerField()
+    price = models.IntegerField(max_length=20)
     discount = models.IntegerField()
     stock = models.IntegerField(max_length=20)
     feature = models.TextField()
