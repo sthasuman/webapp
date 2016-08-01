@@ -20,7 +20,6 @@ class Product(models.Model):
     price = models.IntegerField()
 
 
-
 class Category(models.Model):
     category_name = models.CharField(max_length=50)
     description = models.CharField(max_length=50)
