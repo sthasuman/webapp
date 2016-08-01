@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Customer(models.Model):
+class PersonalInfo(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     dateofbirth = models.DateTimeField()
@@ -9,10 +9,12 @@ class Customer(models.Model):
     phone = models.IntegerField()
     email = models.CharField()
 
+class Customer(models.Model):
+    personal_info = models.ForeignKey(PersonalInfo)
+    cart = models.CharField()
+
 class Vendor(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    dob = models.IntegerField(max_length=5)
+    personal_info = models.ForeignKey(PersonalInfo)
 
 class Product(models.Model):
     prod_name = models.CharField()
