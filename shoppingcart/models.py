@@ -13,3 +13,7 @@ class Vendor(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     dob = models.IntegerField(max_length=5)
+
+class Category(models.Model):
+    category_name = models.CharField(max_length=50)
+    description = models.CharField(max_length=50)
