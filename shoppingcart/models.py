@@ -22,7 +22,7 @@ class Product(models.Model):
     description = models.TextField()
     price = models.IntegerField()
     discount = models.IntegerField()
-    stock = models.IntegerField()
+    stock = models.IntegerField(max_length=20)
     feature = models.TextField()
     vendor = models.ForeignKey(Vendor)
     tags = models.TextField()
