@@ -1,13 +1,27 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+
+from django.http import HttpResponseRedirect, HttpResponse
 
 # Create your models here.
+
 class PersonalInfo(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    dob = models.DateTimeField()
+
+    user = models.OneToOneField(User)
+
+    first_name = models.CharField ()
+    last_name = models.CharField()
+    dob = models.DateField()
     address = models.CharField()
-    phone = models.IntegerField()
-    email = models.CharField()
+    phone = models.CharField()
+
+    # Override the __unicode__() method to return out something meaningful!
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        abstract = True
 
 class Customer(models.Model):
     personal_info = models.ForeignKey(PersonalInfo)
