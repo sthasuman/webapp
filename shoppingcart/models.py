@@ -1,75 +1,56 @@
-from django.contrib.auth.models import User
 from django.db import models
+from django.contrib.auth.models import User
+from  django.utils import timezone
 
-# Create your models here.
 class PersonalInfo(models.Model):
     user = models.OneToOneField(User)
-
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    dob = models.DateTimeField(null=True, blank=True )
+    dob = models.DateField(null=True, blank=True )
     address = models.CharField(max_length=50)
     phone = models.IntegerField(null=True, blank=True)
-    email = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.user.username
 
     class Meta:
-        abstract = True
+        abstract=True
 
 class TimeStamp(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True )
     modified = models.DateTimeField(auto_now=True)
 
     class Meta:
         abstract = True
 
-class Customer(models.Model):
-    personal_info = models.ForeignKey(PersonalInfo)
-    cart = models.TextField()
-    time_stamp = models.ForeignKey(TimeStamp)
-    status = models.IntegerField(
-        (1, 'Verified'),
-        (2, 'Not Verified'),
-        default= 0
-    )
+class Customer(PersonalInfo,TimeStamp):
+    cart = models.TextField(null=True)
 
-class Vendor(models.Model):
-    personal_info = models.ForeignKey(PersonalInfo)
-    time_stamp = models.ForeignKey(TimeStamp)
+class Vendor(PersonalInfo,TimeStamp):
     description = models.CharField(max_length=50)
-    status = models.IntegerField(
-        (1, 'Verified'),
-        (2, 'Not Verified'),
-        default= 0
-    )
 
-class Product(models.Model):
-    product_name = models.CharField(max_length=50)
-    description = models.TextField()
-    price = models.IntegerField(max_length=20)
-    discount = models.IntegerField(default=0)
-    stock = models.IntegerField(default=0)
-    feature = models.TextField()
-    vendor = models.OneToManyField(Vendor)
-    tags = models.TextField()
-    category = models.OneToManyField(Category)
-    time_stamp = models.DateTimeField(TimeStamp)
-
-class Category(models.Model):
+class Category(TimeStamp):
     category_name = models.CharField(max_length=50)
     description = models.CharField(max_length=50)
     parent = models.ForeignKey('self')
-    time_stamp = models.DateTimeField(TimeStamp)
 
-class Order(models.Model):
+
+class Product(TimeStamp):
+    product_name = models.CharField(max_length=50)
+    description = models.TextField()
+    price = models.IntegerField()
+    discount = models.IntegerField(default=0)
+    stock = models.IntegerField(default=0)
+    feature = models.TextField()
+    vendor = models.ForeignKey(Vendor)
+    tags = models.TextField()
+    category = models.ForeignKey(Category)
+
+
+class Order(TimeStamp):
     customer = models.ForeignKey(Customer)
-    time_stamp = models.DateTimeField(TimeStamp)
 
-class OrderItem(models.Model):
+
+class OrderItem(TimeStamp):
     order = models.ForeignKey(Order)
     product = models.ForeignKey(Product)
-    quantity = models.IntegerField(max_length=20)
-    price = models.IntegerField(max_length=20)
-    time_stamp = models.DateTimeField(TimeStamp)
+    quantity = models.IntegerField()
+    price = models.IntegerField()
+
