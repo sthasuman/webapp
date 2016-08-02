@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
-#from django.utils import timezone
-import datetime
+from django.utils import timezone
+#import datetime
 
 # Create your models here.
 
@@ -24,8 +24,8 @@ class PersonalInfo(models.Model):
 class TimeStamp(models.Model):
 
   #  timestamp_id = models.AutoField(primary_key=True)
-    created = models.DateTimeField(default= datetime.datetime.now)
-    modified = models.DateTimeField(default= datetime.datetime.now)
+    created = models.DateTimeField(default= timezone.now)
+    modified = models.DateTimeField(default= timezone.now)
 
     class Meta:
         abstract = True
